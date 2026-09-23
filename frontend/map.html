@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>SpatioraMap</title>
+
+
+    <!-- Leaflet -->
+
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+
+
+    <!-- Leaflet Fullscreen -->
+
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet.fullscreen@3.0.0/Control.FullScreen.css"
+    >
+
+
+    <!-- SpatioraMap CSS -->
+
+    <link
+        rel="stylesheet"
+        href="map.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- ============================== -->
+    <!-- Top Navigation -->
+    <!-- ============================== -->
+
+    <header class="topbar">
+
+
+        <div class="brand-area">
+
+            <div class="brand">
+                SpatioraMap
+            </div>
+
+            <div class="brand-subtitle">
+                WebGIS Platform
+            </div>
+
+        </div>
+
+
+        <div class="user-section">
+
+            <div
+                id="welcomeUser"
+                class="welcome-user"
+            >
+                Welcome
+            </div>
+
+
+            <button
+                id="logoutButton"
+                class="logout-button"
+            >
+                Sign Out
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ============================== -->
+    <!-- Main Application -->
+    <!-- ============================== -->
+
+    <main class="gis-container">
+
+
+        <!-- ========================== -->
+        <!-- Sidebar -->
+        <!-- ========================== -->
+
+        <aside class="sidebar">
+
+
+            <!-- Layers -->
+
+            <section class="panel-section">
+
+                <div class="section-title">
+
+                    <span>
+                        Layers
+                    </span>
+
+                </div>
+
+
+                <div class="layer-item">
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="basemap"
+                            id="osmLayer"
+                            checked
+                        >
+
+                        <span>
+                            OpenStreetMap
+                        </span>
+
+                    </label>
+
+                </div>
+
+
+                <div class="layer-item">
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="basemap"
+                            id="satelliteLayer"
+                        >
+
+                        <span>
+                            Satellite
+                        </span>
+
+                    </label>
+
+                </div>
+
+            </section>
+
+
+            <!-- ========================== -->
+            <!-- Map Tools -->
+            <!-- ========================== -->
+
+            <section class="panel-section">
+
+                <div class="section-title">
+
+                    <span>
+                        Map Tools
+                    </span>
+
+                </div>
+
+
+                <button
+                    id="homeButton"
+                    class="tool-button"
+                >
+                    🏠 Home
+                </button>
+
+
+                <button
+                    id="locateButton"
+                    class="tool-button"
+                >
+                    📍 My Location
+                </button>
+
+
+                <button
+                    id="measureDistance"
+                    class="tool-button"
+                >
+                    📏 Measure Distance
+                </button>
+
+
+                <button
+                    id="measureArea"
+                    class="tool-button"
+                >
+                    ◇ Measure Area
+                </button>
+
+
+                <button
+                    id="clearMap"
+                    class="tool-button danger"
+                >
+                    🗑 Clear Drawings
+                </button>
+
+            </section>
+
+
+            <!-- ========================== -->
+            <!-- Map Information -->
+            <!-- ========================== -->
+
+            <section class="panel-section">
+
+                <div class="section-title">
+
+                    <span>
+                        Map Information
+                    </span>
+
+                </div>
+
+
+                <div class="info-card">
+
+                    <div class="info-row">
+
+                        <span>
+                            Application
+                        </span>
+
+                        <strong>
+                            SpatioraMap
+                        </strong>
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <span>
+                            Status
+                        </span>
+
+                        <strong
+                            id="mapStatus"
+                            class="status"
+                        >
+                            Connecting...
+                        </strong>
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <span>
+                            Coordinates
+                        </span>
+
+                        <strong
+                            id="coordinates"
+                        >
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </aside>
+
+
+        <!-- ============================== -->
+        <!-- Map -->
+        <!-- ============================== -->
+
+        <section
+            id="map"
+            class="map"
+        ></section>
+
+
+    </main>
+
+
+    <!-- ============================== -->
+    <!-- Leaflet JS -->
+    <!-- ============================== -->
+
+    <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    ></script>
+
+
+    <!-- Fullscreen Plugin -->
+
+    <script
+        src="https://unpkg.com/leaflet.fullscreen@3.0.0/Control.FullScreen.js"
+    ></script>
+
+
+    <!-- SpatioraMap JS -->
+
+    <script
+        src="map.js"
+    ></script>
+
+
+</body>
+
+</html>

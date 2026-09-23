@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Fullstack Auth</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="auth-card">
+
+            <h1>Welcome Back</h1>
+
+            <p class="subtitle">
+                Login to your account
+            </p>
+
+            <form id="loginForm">
+
+                <div class="input-group">
+                    <label for="loginEmail">Email</label>
+
+                    <input
+                        type="email"
+                        id="loginEmail"
+                        placeholder="Enter your email"
+                        required
+                    >
+                </div>
+
+                <div class="input-group">
+                    <label for="loginPassword">Password</label>
+
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        placeholder="Enter your password"
+                        required
+                    >
+                </div>
+
+                <button type="submit">
+                    Login
+                </button>
+
+            </form>
+
+            <p id="loginMessage" class="message"></p>
+
+            <div class="switch">
+
+                Don't have an account?
+
+                <button
+                    type="button"
+                    class="link-button"
+                    onclick="showRegister()"
+                >
+                    Register
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="auth-card hidden"
+            id="registerCard"
+        >
+
+            <h1>Create Account</h1>
+
+            <p class="subtitle">
+                Register a new account
+            </p>
+
+            <form id="registerForm">
+
+                <div class="input-group">
+
+                    <label for="registerUsername">
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="registerUsername"
+                        placeholder="Enter username"
+                        required
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label for="registerEmail">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="registerEmail"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label for="registerPassword">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="registerPassword"
+                        placeholder="Enter password"
+                        required
+                    >
+
+                </div>
+
+                <button type="submit">
+                    Register
+                </button>
+
+            </form>
+
+            <p
+                id="registerMessage"
+                class="message"
+            ></p>
+
+            <div class="switch">
+
+                Already have an account?
+
+                <button
+                    type="button"
+                    class="link-button"
+                    onclick="showLogin()"
+                >
+                    Login
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="auth-card hidden"
+            id="dashboardCard"
+        >
+
+            <h1>Dashboard</h1>
+
+            <p class="subtitle">
+                You are successfully logged in.
+            </p>
+
+            <div class="user-info">
+
+                <p>
+                    <strong>ID:</strong>
+                    <span id="userId"></span>
+                </p>
+
+                <p>
+                    <strong>Username:</strong>
+                    <span id="username"></span>
+                </p>
+
+                <p>
+                    <strong>Email:</strong>
+                    <span id="userEmail"></span>
+                </p>
+
+            </div>
+
+            <button
+                type="button"
+                onclick="logout()"
+                class="logout-button"
+            >
+                Sign Out
+            </button>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
