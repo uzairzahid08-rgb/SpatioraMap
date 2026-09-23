@@ -176,7 +176,7 @@ def home():
 # Register
 # ==========================================
 
-@app.post("/register")
+@app.post("/api/register")
 def register(
     user: UserCreate,
     db: Session = Depends(get_db)
@@ -236,7 +236,7 @@ def register(
 # Login
 # ==========================================
 
-@app.post("/login")
+@app.post("/api/login")
 def login(
     user: UserLogin,
     db: Session = Depends(get_db)
@@ -293,7 +293,7 @@ def login(
 # Current User
 # ==========================================
 
-@app.get("/me")
+@app.get("/api/me")
 def get_me(
     current_user: User = Depends(get_current_user)
 ):
