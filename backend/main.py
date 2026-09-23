@@ -1,3 +1,5 @@
+import os
+
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.middleware.cors import CORSMiddleware
@@ -13,9 +15,9 @@ from schemas import UserCreate, UserLogin
 app = FastAPI()
 
 
-# ==============================
+# ==========================================
 # CORS
-# ==============================
+# ==========================================
 
 app.add_middleware(
     CORSMiddleware,
@@ -29,46 +31,52 @@ app.add_middleware(
 )
 
 
-# ==============================
-# Create Database Tables
-# ==============================
+# ==========================================
+# Database
+# ==========================================
 
 Base.metadata.create_all(bind=engine)
 
 
-# ==============================
+# ==========================================
 # JWT Settings
-# ==============================
+# ==========================================
 
-SECRET_KEY = "my-super-secret-key-change-this-later"
+SECRET_KEY = os.getenv(
+    "SECRET_KEY",
+    "local-development-secret-key"
+)
+
 ALGORITHM = "HS256"
 
 
-# ==============================
-# Bearer Authentication
-# ==============================
+# ==========================================
+# Security
+# ==========================================
 
 security = HTTPBearer()
 
 
-# ==============================
-# Database Connection
-# ==============================
+# ==========================================
+# Database Dependency
+# ==========================================
 
 def get_db():
 
     db = SessionLocal()
 
     try:
+
         yield db
 
     finally:
+
         db.close()
 
 
-# ==============================
+# ==========================================
 # Password Hashing
-# ==============================
+# ==========================================
 
 def hash_password(password: str) -> str:
 
@@ -84,9 +92,9 @@ def hash_password(password: str) -> str:
     return hashed.decode("utf-8")
 
 
-# ==============================
+# ==========================================
 # Password Verification
-# ==============================
+# ==========================================
 
 def verify_password(
     password: str,
@@ -103,9 +111,9 @@ def verify_password(
     )
 
 
-# ==============================
+# ==========================================
 # Get Current User
-# ==============================
+# ==========================================
 
 def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(security),
@@ -152,9 +160,9 @@ def get_current_user(
     return user
 
 
-# ==============================
+# ==========================================
 # Home
-# ==============================
+# ==========================================
 
 @app.get("/")
 def home():
@@ -164,17 +172,15 @@ def home():
     }
 
 
-# ==============================
+# ==========================================
 # Register
-# ==============================
+# ==========================================
 
 @app.post("/register")
 def register(
     user: UserCreate,
     db: Session = Depends(get_db)
 ):
-
-    # Check username
 
     existing_username = db.query(User).filter(
         User.username == user.username
@@ -188,8 +194,6 @@ def register(
         )
 
 
-    # Check email
-
     existing_email = db.query(User).filter(
         User.email == user.email
     ).first()
@@ -202,14 +206,10 @@ def register(
         )
 
 
-    # Hash password
-
     hashed_password = hash_password(
         user.password
     )
 
-
-    # Create user
 
     new_user = User(
         username=user.username,
@@ -232,17 +232,15 @@ def register(
     }
 
 
-# ==============================
+# ==========================================
 # Login
-# ==============================
+# ==========================================
 
 @app.post("/login")
 def login(
     user: UserLogin,
     db: Session = Depends(get_db)
 ):
-
-    # Find user
 
     existing_user = db.query(User).filter(
         User.email == user.email
@@ -256,8 +254,6 @@ def login(
             detail="Invalid email or password"
         )
 
-
-    # Verify password
 
     password_correct = verify_password(
         user.password,
@@ -273,15 +269,11 @@ def login(
         )
 
 
-    # JWT data
-
     token_data = {
         "user_id": existing_user.id,
         "username": existing_user.username
     }
 
-
-    # Create JWT
 
     access_token = jwt.encode(
         token_data,
@@ -297,9 +289,9 @@ def login(
     }
 
 
-# ==============================
-# Protected User Information
-# ==============================
+# ==========================================
+# Current User
+# ==========================================
 
 @app.get("/me")
 def get_me(
