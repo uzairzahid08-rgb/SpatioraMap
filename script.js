@@ -1,4 +1,5 @@
-const API_URL = "http://127.0.0.1:8000";
+```javascript
+const API_URL = "/api";
 
 
 // ==============================
@@ -74,7 +75,6 @@ document
 
         event.preventDefault();
 
-
         const username =
             document.getElementById("registerUsername").value;
 
@@ -84,13 +84,10 @@ document
         const password =
             document.getElementById("registerPassword").value;
 
-
         const message =
             document.getElementById("registerMessage");
 
-
         message.textContent = "Creating account...";
-
 
         try {
 
@@ -111,9 +108,7 @@ document
                 }
             );
 
-
             const data = await response.json();
-
 
             if (!response.ok) {
 
@@ -123,22 +118,18 @@ document
                 return;
             }
 
-
             message.textContent =
                 "Registration successful! Please login.";
-
 
             document
                 .getElementById("registerForm")
                 .reset();
-
 
             setTimeout(function() {
 
                 showLogin();
 
             }, 1000);
-
 
         } catch (error) {
 
@@ -161,20 +152,16 @@ document
 
         event.preventDefault();
 
-
         const email =
             document.getElementById("loginEmail").value;
 
         const password =
             document.getElementById("loginPassword").value;
 
-
         const message =
             document.getElementById("loginMessage");
 
-
         message.textContent = "Logging in...";
-
 
         try {
 
@@ -194,9 +181,7 @@ document
                 }
             );
 
-
             const data = await response.json();
-
 
             if (!response.ok) {
 
@@ -206,21 +191,17 @@ document
                 return;
             }
 
-
             // Save JWT token
             localStorage.setItem(
                 "access_token",
                 data.access_token
             );
 
-
             message.textContent =
                 "Login successful!";
 
-
             // Get user information
             await loadUser();
-
 
         } catch (error) {
 
@@ -242,14 +223,12 @@ async function loadUser() {
     const token =
         localStorage.getItem("access_token");
 
-
     if (!token) {
 
         showLogin();
 
         return;
     }
-
 
     try {
 
@@ -265,9 +244,7 @@ async function loadUser() {
             }
         );
 
-
         const data = await response.json();
-
 
         if (!response.ok) {
 
@@ -280,7 +257,6 @@ async function loadUser() {
             return;
         }
 
-
         // Display user information
 
         document.getElementById("userId")
@@ -292,9 +268,7 @@ async function loadUser() {
         document.getElementById("userEmail")
             .textContent = data.email;
 
-
         showDashboard();
-
 
     } catch (error) {
 
@@ -319,13 +293,10 @@ function logout() {
         "access_token"
     );
 
-
     document.getElementById("loginForm").reset();
-
 
     document.getElementById("loginMessage")
         .textContent = "";
-
 
     showLogin();
 }
@@ -343,3 +314,4 @@ window.addEventListener(
 
     }
 );
+```
